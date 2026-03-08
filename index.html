@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>For You ❤️</title>
 
 <style>
@@ -11,7 +12,7 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Segoe UI, sans-serif;
+font-family:Segoe UI;
 }
 
 body{
@@ -20,75 +21,81 @@ display:flex;
 justify-content:center;
 align-items:center;
 overflow:hidden;
-background:black;
+
+/* ảnh nền */
+
+background-image:url("anh.jpg");
+background-size:cover;
+background-position:center;
 }
 
-/* nền blur */
-
-body::before{
-content:"";
-position:fixed;
-inset:0;
-background:url("anh.jpg") center/contain no-repeat;
-filter:blur(40px);
-transform:scale(1.3);
-z-index:-2;
-}
+/* lớp tối nhẹ để nổi chữ */
 
 body::after{
 content:"";
-position:fixed;
+position:absolute;
 inset:0;
-background:url("girl.jpg") center/contain no-repeat;
-z-index:-1;
+background:rgba(0,0,0,0.35);
 }
 
 /* phong bì */
 
 .envelope{
 position:relative;
-width:320px;
-height:200px;
+width:360px;
+height:230px;
 cursor:pointer;
 z-index:5;
+animation:float 3s ease-in-out infinite;
 }
 
-.flap{
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+}
+
+.envelope-body{
 position:absolute;
 width:100%;
 height:100%;
-background:#ff8fa3;
+background:linear-gradient(135deg,#ff7aa2,#ff4d6d);
+border-radius:12px;
+box-shadow:0 15px 40px rgba(0,0,0,0.4);
+}
+
+.envelope-flap{
+position:absolute;
+width:100%;
+height:100%;
+background:linear-gradient(135deg,#ff8fab,#ff758f);
 clip-path:polygon(0 0,100% 0,50% 60%);
-transition:0.6s;
-z-index:2;
-}
-
-.body{
-position:absolute;
-width:100%;
-height:100%;
-background:#ffccd5;
-border-radius:8px;
+transition:0.7s;
+transform-origin:top;
 }
 
 .letter{
 position:absolute;
+left:20px;
+right:20px;
 top:20px;
-left:10px;
-right:10px;
-bottom:10px;
+bottom:20px;
+
 background:white;
-border-radius:8px;
-padding:20px;
+border-radius:10px;
+
+padding:25px;
+
 text-align:center;
-font-size:14px;
 line-height:1.6;
-transform:translateY(100px);
-transition:0.6s;
+
+transform:translateY(120px);
 opacity:0;
+transition:0.7s;
 }
 
-.open .flap{
+/* mở thư */
+
+.open .envelope-flap{
 transform:rotateX(180deg);
 }
 
@@ -97,9 +104,13 @@ transform:translateY(0);
 opacity:1;
 }
 
+h2{
+margin-bottom:10px;
+}
+
 /* hoa */
 
-.sakura{
+.flower{
 position:absolute;
 font-size:18px;
 animation:fall linear infinite;
@@ -110,6 +121,7 @@ animation:fall linear infinite;
 transform:translateY(-10px) rotate(0deg);
 opacity:1;
 }
+
 100%{
 transform:translateY(110vh) rotate(360deg);
 opacity:0;
@@ -120,8 +132,7 @@ opacity:0;
 
 .heart{
 position:absolute;
-font-size:18px;
-color:red;
+font-size:20px;
 animation:fly 2s linear forwards;
 }
 
@@ -131,7 +142,7 @@ transform:translateY(0);
 opacity:1;
 }
 100%{
-transform:translateY(-200px);
+transform:translateY(-220px);
 opacity:0;
 }
 }
@@ -143,21 +154,21 @@ opacity:0;
 
 <div class="envelope" onclick="openLetter()">
 
-<div class="flap"></div>
+<div class="envelope-body"></div>
 
-<div class="body"></div>
+<div class="envelope-flap"></div>
 
 <div class="letter">
 
-<h3>💌 Gửi bạn</h3>
+<h2>💌 Gửi bạn</h2>
 
 <p>
 
 Chúc em một ngày 8/3 thật nhiều niềm vui  
 luôn xinh đẹp, rạng rỡ và hạnh phúc.
 
-Ở xứ người mong em vẫn luôn mạnh mẽ  
-và thành công ✨
+Ở xứ người mong em luôn mạnh mẽ  
+và đạt được những điều em mong muốn ✨
 
 Chúc em luôn mỉm cười mỗi ngày ❤️
 
@@ -169,51 +180,45 @@ Chúc em luôn mỉm cười mỗi ngày ❤️
 
 <script>
 
-/* mở thư */
-
 function openLetter(){
 document.querySelector(".envelope").classList.toggle("open")
 }
 
 /* hoa rơi */
 
-function createFlower(){
+function flower(){
 
-const flower=document.createElement("div")
+let f=document.createElement("div")
 
-flower.className="sakura"
-flower.innerHTML="🌸"
+f.className="flower"
+f.innerHTML="🌸"
 
-flower.style.left=Math.random()*100+"vw"
-flower.style.animationDuration=(5+Math.random()*5)+"s"
+f.style.left=Math.random()*100+"vw"
+f.style.animationDuration=(5+Math.random()*5)+"s"
 
-document.body.appendChild(flower)
+document.body.appendChild(f)
 
-setTimeout(()=>{
-flower.remove()
-},10000)
+setTimeout(()=>{f.remove()},10000)
 
 }
 
-setInterval(createFlower,300)
+setInterval(flower,300)
 
 /* tim bay */
 
-document.addEventListener("click",(e)=>{
+document.addEventListener("click",e=>{
 
-const heart=document.createElement("div")
+let h=document.createElement("div")
 
-heart.className="heart"
-heart.innerHTML="❤️"
+h.className="heart"
+h.innerHTML="❤️"
 
-heart.style.left=e.clientX+"px"
-heart.style.top=e.clientY+"px"
+h.style.left=e.clientX+"px"
+h.style.top=e.clientY+"px"
 
-document.body.appendChild(heart)
+document.body.appendChild(h)
 
-setTimeout(()=>{
-heart.remove()
-},2000)
+setTimeout(()=>{h.remove()},2000)
 
 })
 
