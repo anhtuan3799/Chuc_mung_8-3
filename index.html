@@ -15,31 +15,91 @@ font-family:"Segoe UI",sans-serif;
 }
 
 body{
+
 height:100vh;
-background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+background-image:url("anh.jpg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+
 display:flex;
 justify-content:center;
 align-items:center;
+
 overflow:hidden;
 color:white;
 text-align:center;
+
 }
 
-/* STAR BACKGROUND */
+/* LỚP LÀM ẢNH TỐI NHẸ */
+
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+z-index:-1;
+}
+
+/* ENVELOPE */
+
+.envelope{
+
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(8px);
+
+padding:30px;
+border-radius:20px;
+
+max-width:340px;
+
+box-shadow:0 10px 40px rgba(0,0,0,0.5);
+
+cursor:pointer;
+
+transition:0.4s;
+
+}
+
+.envelope:hover{
+transform:scale(1.05);
+}
+
+h1{
+margin-bottom:10px;
+font-size:28px;
+}
+
+.letter{
+
+display:none;
+
+margin-top:15px;
+
+font-size:18px;
+line-height:1.6;
+
+}
+
+/* STAR */
 
 .star{
 position:absolute;
-width:3px;
-height:3px;
+width:2px;
+height:2px;
 background:white;
 border-radius:50%;
 animation:twinkle 3s infinite;
 }
 
 @keyframes twinkle{
-0%{opacity:0.2}
+0%{opacity:0.3}
 50%{opacity:1}
-100%{opacity:0.2}
+100%{opacity:0.3}
 }
 
 /* ROSE */
@@ -47,72 +107,52 @@ animation:twinkle 3s infinite;
 .rose{
 position:absolute;
 top:-10px;
-font-size:22px;
+font-size:26px;
 animation:fall linear infinite;
+filter:drop-shadow(0 0 10px pink);
 }
 
 @keyframes fall{
 to{
-transform:translateY(110vh);
+transform:translateY(110vh) rotate(360deg);
 }
 }
 
 /* HEART */
 
 .heart{
+
 position:absolute;
-color:red;
+color:#ff4d6d;
+
 font-size:18px;
+
 animation:float 6s linear infinite;
+
+filter:drop-shadow(0 0 10px red);
+
 }
 
 @keyframes float{
+
 from{
-transform:translateY(100vh);
+transform:translateY(100vh) scale(0.8);
 opacity:1;
 }
+
 to{
-transform:translateY(-10vh);
+transform:translateY(-10vh) scale(1.4);
 opacity:0;
 }
+
 }
 
-/* LETTER */
+/* MOBILE */
 
-.envelope{
-background:white;
-color:#ff5e78;
-padding:25px;
-border-radius:15px;
-max-width:320px;
-box-shadow:0 10px 25px rgba(0,0,0,0.2);
-cursor:pointer;
-transition:0.4s;
-}
-
-.envelope:hover{
-transform:scale(1.05);
-}
-
-.letter{
-display:none;
-margin-top:15px;
-line-height:1.6;
-font-size:17px;
-}
+@media(max-width:500px){
 
 h1{
-margin-bottom:10px;
-}
-
-@media (max-width:500px){
-
-.envelope{
-max-width:90%;
-}
-
-h1{
-font-size:24px;
+font-size:22px;
 }
 
 }
@@ -123,7 +163,7 @@ font-size:24px;
 <body>
 
 <audio autoplay loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_36a4e9c0b2.mp3?filename=romantic-background-112191.mp3">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_36a4e9c0b2.mp3">
 </audio>
 
 <div class="envelope" onclick="openLetter()">
@@ -133,17 +173,12 @@ font-size:24px;
 
 <div class="letter" id="letter">
 
-🌸 Chúc bạn một ngày **8/3 thật nhiều niềm vui**  
+🌸 Chúc em một ngày 8/3 thật nhiều niềm vui  
 luôn xinh đẹp, rạng rỡ và hạnh phúc.
 
-Anh rất vui vì đã có cơ hội  
-được làm quen và tìm hiểu một cô gái  
-**dễ thương và đặc biệt như bạn.**
+ở xứ người mong em vẫn luôn mạnh mẽ và thành công.✨
 
-Hy vọng chúng ta sẽ có thêm  
-nhiều kỷ niệm đẹp cùng nhau. ✨
-
-Chúc bạn luôn mỉm cười mỗi ngày 💖
+Chúc em luôn mỉm cười mỗi ngày 💖
 
 </div>
 
@@ -159,13 +194,15 @@ document.getElementById("letter").style.display="block"
 
 /* STARS */
 
-for(let i=0;i<60;i++){
+for(let i=0;i<80;i++){
 
 let star=document.createElement("div")
+
 star.className="star"
 
 star.style.left=Math.random()*100+"vw"
 star.style.top=Math.random()*100+"vh"
+
 star.style.animationDelay=Math.random()*3+"s"
 
 document.body.appendChild(star)
@@ -177,29 +214,35 @@ document.body.appendChild(star)
 function createRose(){
 
 let rose=document.createElement("div")
+
 rose.className="rose"
-rose.innerHTML="🌹"
+
+rose.innerHTML="🌸"
 
 rose.style.left=Math.random()*100+"vw"
-rose.style.animationDuration=4+Math.random()*4+"s"
+
+rose.style.animationDuration=5+Math.random()*5+"s"
 
 document.body.appendChild(rose)
 
-setTimeout(()=>rose.remove(),8000)
+setTimeout(()=>rose.remove(),9000)
 
 }
 
-setInterval(createRose,500)
+setInterval(createRose,400)
 
-/* HEARTS */
+/* HEART */
 
 function createHeart(){
 
 let heart=document.createElement("div")
+
 heart.className="heart"
+
 heart.innerHTML="❤"
 
 heart.style.left=Math.random()*100+"vw"
+
 heart.style.animationDuration=4+Math.random()*3+"s"
 
 document.body.appendChild(heart)
@@ -208,7 +251,7 @@ setTimeout(()=>heart.remove(),7000)
 
 }
 
-setInterval(createHeart,700)
+setInterval(createHeart,800)
 
 </script>
 
