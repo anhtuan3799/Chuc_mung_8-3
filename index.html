@@ -26,7 +26,7 @@ background:url("anh.jpg") center/cover no-repeat;
 
 }
 
-/* nền mờ để thấy ảnh */
+/* lớp blur nhẹ */
 
 body::after{
 
@@ -34,27 +34,27 @@ content:"";
 position:absolute;
 inset:0;
 
-background:rgba(0,0,0,0.25);
+background:rgba(0,0,0,0.2);
 
-backdrop-filter:blur(3px);
+backdrop-filter:blur(4px);
 
 }
 
 /* chữ 8/3 */
 
-.glow-text{
+.title{
 
 position:absolute;
-top:6%;
+top:7%;
 
-font-size:60px;
+font-size:55px;
 font-weight:bold;
+
 color:white;
 
 text-shadow:
 0 0 10px pink,
-0 0 20px pink,
-0 0 40px #ff4d6d;
+0 0 30px #ff4d6d;
 
 animation:float 4s ease-in-out infinite;
 
@@ -63,147 +63,101 @@ z-index:10;
 }
 
 @keyframes float{
+
 0%,100%{transform:translateY(0)}
-50%{transform:translateY(-12px)}
+50%{transform:translateY(-10px)}
+
 }
 
-/* phong bì */
+/* glass card */
 
-.envelope{
+.card{
 
-position:relative;
 width:420px;
-height:260px;
 
-cursor:pointer;
+padding:35px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,0.15);
+
+backdrop-filter:blur(12px);
+
+border:1px solid rgba(255,255,255,0.3);
+
+box-shadow:0 20px 60px rgba(0,0,0,0.4);
+
+text-align:center;
+
+color:white;
 
 z-index:20;
 
-perspective:1000px;
+animation:fadeUp 1.2s ease;
 
 }
 
-/* cinematic hover */
+@keyframes fadeUp{
 
-.envelope:hover{
-transform:scale(1.05);
-transition:0.4s;
-}
-
-.envelope-body{
-
-position:absolute;
-width:100%;
-height:100%;
-
-background:linear-gradient(135deg,#ff9bb3,#ff4d6d);
-
-border-radius:18px;
-
-box-shadow:0 20px 60px rgba(0,0,0,0.45);
-
-}
-
-/* nắp phong bì */
-
-.envelope-flap{
-
-position:absolute;
-width:100%;
-height:100%;
-
-background:linear-gradient(135deg,#ffb3c6,#ff758f);
-
-clip-path:polygon(0 0,100% 0,50% 65%);
-
-transform-origin:top;
-
-transition:1s;
-
-border-radius:18px;
-
-}
-
-/* thư */
-
-.letter{
-
-position:absolute;
-
-left:25px;
-right:25px;
-top:25px;
-bottom:25px;
-
-background:white;
-
-border-radius:14px;
-
-padding:30px;
-
-text-align:center;
-line-height:1.7;
-
-transform:translateY(120px);
-
+from{
 opacity:0;
-
-transition:1s;
-
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
-
+transform:translateY(40px);
 }
 
-.open .envelope-flap{
-transform:rotateX(180deg);
-}
-
-.open .letter{
-
-transform:translateY(0);
-
+to{
 opacity:1;
+transform:translateY(0);
+}
 
 }
 
-/* text */
+.card h2{
 
-h2{
-margin-bottom:12px;
+margin-bottom:15px;
+font-size:26px;
+
 }
 
-/* hoa hồng 3D */
+.card p{
+
+line-height:1.8;
+font-size:17px;
+
+}
+
+/* hoa hồng */
 
 .rose{
 
 position:absolute;
-font-size:26px;
+font-size:24px;
 
-animation:roseFall linear infinite,
-roseSpin 4s linear infinite;
+animation:fall linear infinite,
+spin 4s linear infinite;
 
-filter:drop-shadow(0 0 10px #ff4d6d);
+filter:drop-shadow(0 0 8px #ff4d6d);
 
 }
 
-@keyframes roseFall{
+@keyframes fall{
 
 0%{
-transform:translateY(-50px) rotateY(0deg);
+transform:translateY(-40px);
 opacity:1;
 }
 
 100%{
-transform:translateY(110vh) rotateY(720deg);
+transform:translateY(110vh);
 opacity:0;
 }
 
 }
 
-@keyframes roseSpin{
+@keyframes spin{
 
 0%{transform:rotate(0)}
 100%{transform:rotate(360deg)}
+
 }
 
 /* bướm */
@@ -211,15 +165,15 @@ opacity:0;
 .butterfly{
 
 position:absolute;
-font-size:22px;
+font-size:20px;
 
-animation:flyButter 12s linear infinite;
+animation:fly 12s linear infinite;
 
 filter:drop-shadow(0 0 10px pink);
 
 }
 
-@keyframes flyButter{
+@keyframes fly{
 
 0%{transform:translateX(-10vw)}
 100%{transform:translateX(110vw)}
@@ -257,15 +211,15 @@ animation:twinkle 2s infinite;
 
 @media(max-width:600px){
 
-.envelope{
+.card{
 
-width:300px;
-height:190px;
+width:85%;
+padding:25px;
 
 }
 
-.glow-text{
-font-size:40px;
+.title{
+font-size:38px;
 }
 
 }
@@ -275,14 +229,9 @@ font-size:40px;
 
 <body>
 
-<div class="glow-text">✨ 8 / 3 ✨</div>
+<div class="title">✨ 8 / 3 ✨</div>
 
-<div class="envelope" onclick="openLetter()">
-
-<div class="envelope-body"></div>
-<div class="envelope-flap"></div>
-
-<div class="letter">
+<div class="card">
 
 <h2>💌 Gửi bạn</h2>
 
@@ -300,34 +249,26 @@ Chúc em luôn mỉm cười mỗi ngày ❤️
 
 </div>
 
-</div>
-
 <audio id="music" src="music.mp3"></audio>
 
 <script>
 
-/* mở thư + nhạc */
+/* nhạc khi click */
 
-function openLetter(){
-
-document.querySelector(".envelope").classList.toggle("open")
-
+document.body.addEventListener("click",()=>{
 document.getElementById("music").play()
+},{once:true})
 
-}
-
-/* hoa hồng */
+/* hoa */
 
 function rose(){
 
 let r=document.createElement("div")
 
 r.className="rose"
-
 r.innerHTML="🌹"
 
 r.style.left=Math.random()*100+"vw"
-
 r.style.animationDuration=(6+Math.random()*6)+"s"
 
 document.body.appendChild(r)
@@ -345,7 +286,6 @@ function butterfly(){
 let b=document.createElement("div")
 
 b.className="butterfly"
-
 b.innerHTML="🦋"
 
 b.style.top=Math.random()*70+"vh"
