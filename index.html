@@ -15,63 +15,71 @@ font-family:Segoe UI;
 }
 
 body{
-
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
 overflow:hidden;
-
 background:url("anh.jpg") center/cover no-repeat;
-
 }
 
-/* lớp blur nhẹ */
+/* lớp mờ để thấy ảnh */
 
 body::after{
-
 content:"";
 position:absolute;
 inset:0;
-
-background:rgba(0,0,0,0.2);
-
-backdrop-filter:blur(4px);
-
+background:rgba(0,0,0,0.25);
+backdrop-filter:blur(3px);
 }
 
-/* chữ 8/3 */
+/* tiêu đề */
 
 .title{
-
 position:absolute;
-top:7%;
-
+top:8%;
 font-size:55px;
 font-weight:bold;
-
 color:white;
+text-shadow:0 0 15px pink,0 0 40px #ff4d6d;
+z-index:5;
+}
 
-text-shadow:
-0 0 10px pink,
-0 0 30px #ff4d6d;
+/* nút mở thư */
 
-animation:float 4s ease-in-out infinite;
+.openBtn{
 
 z-index:10;
 
+padding:14px 30px;
+
+font-size:18px;
+
+border:none;
+
+border-radius:40px;
+
+background:#ff4d6d;
+
+color:white;
+
+cursor:pointer;
+
+box-shadow:0 0 20px #ff4d6d;
+
+transition:0.3s;
+
 }
 
-@keyframes float{
-
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-10px)}
-
+.openBtn:hover{
+transform:scale(1.1);
 }
 
-/* glass card */
+/* card lời chúc */
 
 .card{
+
+position:absolute;
 
 width:420px;
 
@@ -91,9 +99,11 @@ text-align:center;
 
 color:white;
 
+display:none;
+
 z-index:20;
 
-animation:fadeUp 1.2s ease;
+animation:fadeUp 1s ease;
 
 }
 
@@ -111,99 +121,29 @@ transform:translateY(0);
 
 }
 
-.card h2{
+/* tim + hoa */
 
-margin-bottom:15px;
-font-size:26px;
-
-}
-
-.card p{
-
-line-height:1.8;
-font-size:17px;
-
-}
-
-/* hoa hồng */
-
-.rose{
+.fall{
 
 position:absolute;
+
 font-size:24px;
 
-animation:fall linear infinite,
-spin 4s linear infinite;
-
-filter:drop-shadow(0 0 8px #ff4d6d);
+animation:fall linear forwards;
 
 }
 
 @keyframes fall{
 
 0%{
-transform:translateY(-40px);
+transform:translateY(-40px) rotate(0deg);
 opacity:1;
 }
 
 100%{
-transform:translateY(110vh);
+transform:translateY(110vh) rotate(360deg);
 opacity:0;
 }
-
-}
-
-@keyframes spin{
-
-0%{transform:rotate(0)}
-100%{transform:rotate(360deg)}
-
-}
-
-/* bướm */
-
-.butterfly{
-
-position:absolute;
-font-size:20px;
-
-animation:fly 12s linear infinite;
-
-filter:drop-shadow(0 0 10px pink);
-
-}
-
-@keyframes fly{
-
-0%{transform:translateX(-10vw)}
-100%{transform:translateX(110vw)}
-
-}
-
-/* bụi vàng */
-
-.sparkle{
-
-position:absolute;
-
-width:4px;
-height:4px;
-
-background:gold;
-
-border-radius:50%;
-
-box-shadow:0 0 8px gold;
-
-animation:twinkle 2s infinite;
-
-}
-
-@keyframes twinkle{
-
-0%{opacity:0}
-50%{opacity:1}
-100%{opacity:0}
 
 }
 
@@ -212,14 +152,11 @@ animation:twinkle 2s infinite;
 @media(max-width:600px){
 
 .card{
-
 width:85%;
-padding:25px;
-
 }
 
 .title{
-font-size:38px;
+font-size:36px;
 }
 
 }
@@ -231,19 +168,21 @@ font-size:38px;
 
 <div class="title">✨ 8 / 3 ✨</div>
 
-<div class="card">
+<button class="openBtn" onclick="openCard()">💌 Mở lời chúc</button>
 
-<h2>💌 Gửi bạn</h2>
+<div class="card" id="card">
+
+<h2>Chúc em 8/3 thật vui 🌸</h2>
 
 <p>
 
 Chúc em một ngày 8/3 thật nhiều niềm vui  
-luôn xinh đẹp, rạng rỡ và hạnh phúc.
+luôn xinh đẹp và hạnh phúc.
 
-Ở xứ người mong em luôn mạnh mẽ  
-và đạt được những điều em mong muốn ✨
+Dù đang ở nơi xa  
+mong em luôn mạnh mẽ và đạt được điều em mong muốn.
 
-Chúc em luôn mỉm cười mỗi ngày ❤️
+Hy vọng mỗi ngày của em đều tràn ngập nụ cười ❤️
 
 </p>
 
@@ -253,69 +192,45 @@ Chúc em luôn mỉm cười mỗi ngày ❤️
 
 <script>
 
-/* nhạc khi click */
+/* mở lời chúc */
 
-document.body.addEventListener("click",()=>{
+function openCard(){
+
+document.querySelector(".openBtn").style.display="none"
+
+document.getElementById("card").style.display="block"
+
 document.getElementById("music").play()
-},{once:true})
-
-/* hoa */
-
-function rose(){
-
-let r=document.createElement("div")
-
-r.className="rose"
-r.innerHTML="🌹"
-
-r.style.left=Math.random()*100+"vw"
-r.style.animationDuration=(6+Math.random()*6)+"s"
-
-document.body.appendChild(r)
-
-setTimeout(()=>{r.remove()},12000)
 
 }
 
-setInterval(rose,500)
+/* tim và hoa rơi */
 
-/* bướm */
+function createFall(){
 
-function butterfly(){
+let el=document.createElement("div")
 
-let b=document.createElement("div")
+el.className="fall"
 
-b.className="butterfly"
-b.innerHTML="🦋"
+let icons=["❤️","🌸","💖"]
 
-b.style.top=Math.random()*70+"vh"
+el.innerHTML=icons[Math.floor(Math.random()*icons.length)]
 
-document.body.appendChild(b)
+el.style.left=Math.random()*100+"vw"
 
-setTimeout(()=>{b.remove()},12000)
+el.style.animationDuration=(5+Math.random()*5)+"s"
 
-}
+document.body.appendChild(el)
 
-setInterval(butterfly,5000)
-
-/* bụi vàng */
-
-function sparkle(){
-
-let s=document.createElement("div")
-
-s.className="sparkle"
-
-s.style.left=Math.random()*100+"vw"
-s.style.top=Math.random()*100+"vh"
-
-document.body.appendChild(s)
-
-setTimeout(()=>{s.remove()},2000)
+setTimeout(()=>{
+el.remove()
+},10000)
 
 }
 
-setInterval(sparkle,120)
+/* xuất hiện ngay khi mở web */
+
+setInterval(createFall,300)
 
 </script>
 
