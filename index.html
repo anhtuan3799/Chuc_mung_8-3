@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>For You ❤️</title>
+<title>Happy Women's Day</title>
 
 <style>
 
@@ -15,7 +15,7 @@ box-sizing:border-box;
 font-family:Segoe UI;
 }
 
-/* ẢNH NỀN */
+/* BACKGROUND ẢNH CÔ ẤY */
 
 body{
 
@@ -29,16 +29,53 @@ background:url("anh.jpg") center/cover no-repeat;
 
 }
 
-/* lớp tối nhẹ */
+/* lớp ánh sáng mộng mơ */
 
 body::after{
+
 content:"";
 position:absolute;
 inset:0;
-background:rgba(0,0,0,0.25);
+
+background:linear-gradient(
+to top,
+rgba(0,0,0,0.4),
+rgba(255,150,200,0.25)
+);
+
 }
 
-/* PHONG BÌ */
+/* chữ 8/3 phát sáng */
+
+.glow-text{
+
+position:absolute;
+top:8%;
+font-size:70px;
+font-weight:bold;
+
+color:#fff;
+
+text-shadow:
+0 0 10px pink,
+0 0 20px pink,
+0 0 40px #ff5fa2,
+0 0 80px #ff5fa2;
+
+z-index:5;
+
+animation:float 4s ease-in-out infinite;
+
+}
+
+@keyframes float{
+
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+
+}
+
+/* phong bì */
 
 .envelope{
 
@@ -47,15 +84,18 @@ width:460px;
 height:280px;
 
 cursor:pointer;
-z-index:5;
 
-animation:float 3s ease-in-out infinite;
+z-index:10;
+
+animation:float2 3s ease-in-out infinite;
 
 }
 
-@keyframes float{
+@keyframes float2{
+
 0%,100%{transform:translateY(0)}
-50%{transform:translateY(-12px)}
+50%{transform:translateY(-14px)}
+
 }
 
 .envelope-body{
@@ -65,13 +105,14 @@ width:100%;
 height:100%;
 
 background:linear-gradient(135deg,#ff9bb3,#ff4d6d);
+
 border-radius:18px;
 
-box-shadow:0 20px 50px rgba(0,0,0,0.4);
+box-shadow:0 25px 60px rgba(0,0,0,0.45);
 
 }
 
-/* NẮP PHONG BÌ */
+/* nắp */
 
 .envelope-flap{
 
@@ -90,7 +131,7 @@ border-radius:18px;
 
 }
 
-/* LÁ THƯ */
+/* lá thư */
 
 .letter{
 
@@ -117,8 +158,6 @@ transition:0.8s;
 
 }
 
-/* mở thư */
-
 .open .envelope-flap{
 transform:rotateX(180deg);
 }
@@ -133,18 +172,21 @@ margin-bottom:12px;
 font-size:24px;
 }
 
-/* HOA */
+/* hoa */
 
-.flower{
+.rose{
+
 position:absolute;
-font-size:20px;
+font-size:22px;
+
 animation:fall linear infinite;
+
 }
 
 @keyframes fall{
 
 0%{
-transform:translateY(-10px) rotate(0deg);
+transform:translateY(-20px) rotate(0deg);
 opacity:1;
 }
 
@@ -155,25 +197,47 @@ opacity:0;
 
 }
 
-/* TIM */
+/* bướm */
 
-.heart{
+.butterfly{
+
 position:absolute;
 font-size:22px;
-animation:fly 2s linear forwards;
+
+animation:flyButter 8s linear infinite;
+
 }
 
-@keyframes fly{
+@keyframes flyButter{
 
-0%{
-transform:translateY(0);
-opacity:1;
+0%{transform:translateX(-10vw) translateY(0)}
+50%{transform:translateX(50vw) translateY(-40px)}
+100%{transform:translateX(110vw) translateY(0)}
+
 }
 
-100%{
-transform:translateY(-230px);
-opacity:0;
+/* bụi vàng */
+
+.sparkle{
+
+position:absolute;
+width:4px;
+height:4px;
+background:gold;
+
+border-radius:50%;
+
+box-shadow:0 0 8px gold;
+
+animation:twinkle 2s infinite;
+
 }
+
+@keyframes twinkle{
+
+0%{opacity:0}
+50%{opacity:1}
+100%{opacity:0}
 
 }
 
@@ -181,6 +245,8 @@ opacity:0;
 </head>
 
 <body>
+
+<div class="glow-text">✨ 8 / 3 ✨</div>
 
 <div class="envelope" onclick="openLetter()">
 
@@ -214,43 +280,63 @@ function openLetter(){
 document.querySelector(".envelope").classList.toggle("open")
 }
 
-/* hoa rơi */
+/* hoa hồng */
 
-function flower(){
+function rose(){
 
-let f=document.createElement("div")
+let r=document.createElement("div")
 
-f.className="flower"
-f.innerHTML="🌸"
+r.className="rose"
+r.innerHTML="🌹"
 
-f.style.left=Math.random()*100+"vw"
-f.style.animationDuration=(6+Math.random()*6)+"s"
+r.style.left=Math.random()*100+"vw"
+r.style.animationDuration=(6+Math.random()*6)+"s"
 
-document.body.appendChild(f)
+document.body.appendChild(r)
 
-setTimeout(()=>{f.remove()},12000)
+setTimeout(()=>{r.remove()},12000)
 
 }
 
-setInterval(flower,400)
+setInterval(rose,500)
 
-/* tim bay */
+/* bướm */
 
-document.addEventListener("click",e=>{
+function butterfly(){
 
-let h=document.createElement("div")
+let b=document.createElement("div")
 
-h.className="heart"
-h.innerHTML="❤️"
+b.className="butterfly"
+b.innerHTML="🦋"
 
-h.style.left=e.clientX+"px"
-h.style.top=e.clientY+"px"
+b.style.top=Math.random()*60+"vh"
 
-document.body.appendChild(h)
+document.body.appendChild(b)
 
-setTimeout(()=>{h.remove()},2000)
+setTimeout(()=>{b.remove()},8000)
 
-})
+}
+
+setInterval(butterfly,4000)
+
+/* bụi vàng */
+
+function sparkle(){
+
+let s=document.createElement("div")
+
+s.className="sparkle"
+
+s.style.left=Math.random()*100+"vw"
+s.style.top=Math.random()*100+"vh"
+
+document.body.appendChild(s)
+
+setTimeout(()=>{s.remove()},2000)
+
+}
+
+setInterval(sparkle,120)
 
 </script>
 
